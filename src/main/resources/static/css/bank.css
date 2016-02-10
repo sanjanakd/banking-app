@@ -1,0 +1,38 @@
+body {
+    background-color: #269abc;
+    margin:80px 80px 100px 100px;
+}
+div#fixedheader {
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    color: #ac2925;
+    background:#333;
+    padding:0px;
+}
+div#fixedfooter {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    color:#CCC;
+    background:#333;
+    padding:8px;
+}
+
+
+div#accounts {
+    position:relative;
+    top:0px;
+    left:0px;
+    width:10%;
+    color: #f9f2f4;
+    background:#ac2925;
+    padding:20px;
+}
+
+
+
+
+
