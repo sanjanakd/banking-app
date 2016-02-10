@@ -25,7 +25,10 @@
 
         <div id="accounts" ng-repeat="account in accounts">
 
-            <h1>{{account.name}} {{account.accountNumber}} {{account.balance}}</h1>
+            <h2><p>Account Type :{{account.name}}</p>
+                <p>Account No. :{{account.accountNumber}}</p>
+                <p>Balance is : ${{account.balance}}</p></h2>
+
 
         </div>
         <button ng-click="getAccounts();getTransactions()">Refresh</button>
