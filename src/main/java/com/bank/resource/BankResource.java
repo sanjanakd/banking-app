@@ -2,6 +2,7 @@ package com.bank.resource;
 
 import com.bank.model.Account;
 import com.bank.model.Transaction;
+import com.bank.model.Transfer;
 import com.bank.services.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,5 +43,12 @@ public class BankResource {
 
         return bankService.getTranscations();
     }
+
+
+    @RequestMapping(value = "transfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void transferMoney(@RequestBody Transfer transfer) { bankService.doTransfer();
+       System.out.println("transfer done :"+transfer);
+    }
+
 
 }

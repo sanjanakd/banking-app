@@ -3,6 +3,7 @@ package com.bank.services;
 import com.bank.dao.BankDao;
 import com.bank.model.Account;
 import com.bank.model.Transaction;
+import com.bank.model.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by xkt676 on 2/5/16.
  */
-@Component
+//@Component
 public class BankService {
 
     @Autowired
@@ -42,6 +43,17 @@ public class BankService {
 
         return transactions;
     }
+
+    public List<Transfer> doTransfer() {
+
+
+        List<Transfer> transfers = bankDao.getTransferFromdatabase();
+
+        return transfers;
+    }
+
+
+
 
 
     /**

@@ -1,12 +1,22 @@
 package com.bank.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.*;
+
 /**
  * Created by xkt676 on 2/5/16.
  */
+@Entity
+@Table(name = "TRANSACTIONS")
 public class Transaction {
     private int accountNumber;
     private String merchantName;
     private double transactionAmount;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String transactionId;
 
 
     public int getAccountNumber() {
@@ -32,5 +42,9 @@ public class Transaction {
     public void setTransactionAmount(double transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
+
+    public String getTransactionId(){ return transactionId; }
+
+    public void setTransactionId(String transactionId){ this.transactionId=transactionId; }
 }
 

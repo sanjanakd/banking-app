@@ -2,6 +2,7 @@ package com.bank.dao;
 
 import com.bank.model.Account;
 import com.bank.model.Transaction;
+import com.bank.model.Transfer;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,11 @@ public class BankDao {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+
 
 
     public List<Account> getAccountFromDatabase() {
@@ -59,7 +65,8 @@ public class BankDao {
         entityManager.persist(account);
     }
 
-    public void deleteAccountFromDatabase(String accountId){
+    public void deleteAccountFromDatabase(String accountId) {
+
         accountRepository.delete(accountId);
     }
 
@@ -80,7 +87,39 @@ public class BankDao {
         transaction1.setMerchantName("prada");
         transaction1.setTransactionAmount(899.87);
 
-        list.add(transaction);
+        list.add(transaction1);
+
+
+        Transaction transaction2 = new Transaction();
+        transaction2.setAccountNumber(1122119999);
+        transaction2.setMerchantName("Macys");
+        transaction2.setTransactionAmount(799.87);
+
+        list.add(transaction2);
+
+
+        Transaction transaction3 = new Transaction();
+        transaction3.setAccountNumber(992211211);
+        transaction3.setMerchantName("cold Stone");
+        transaction3.setTransactionAmount(89.87);
+
+        list.add(transaction3);
+
+
+       // Iterable<Transaction> iterable=transactionRepository.findAll();
+        //return Lists.newArrayList(iterable);
         return list;
     }
+
+    public List<Transfer> getTransferFromdatabase() {
+
+        Transfer transfer=new Transfer();
+
+        List<Transfer> list = new ArrayList<>();
+        list.add(transfer);
+
+        return list;
+
+    }
 }
+
