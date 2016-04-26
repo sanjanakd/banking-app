@@ -69,6 +69,8 @@ public class UserResourceTestIT extends TestCase {
         System.out.println("http status code for getTransactionsDetails :"+responseEntity.getStatusCode().value());
         System.out.println("http response body for getTransactionsDetails :" + responseEntity.getBody().get(2));
 
+        assertThat(responseEntity.getBody().size(),greaterThanOrEqualTo(0));
+
 
     }
     @Test
@@ -81,6 +83,9 @@ public class UserResourceTestIT extends TestCase {
 
         System.out.println("http status code for getReceipts :"+responseEntity.getStatusCode().value());
         System.out.println("http response body for getReceipts :"+responseEntity.getBody().get(2));
+        assertThat(responseEntity.getBody().size(),greaterThanOrEqualTo(0));
+
 
     }
+
 }

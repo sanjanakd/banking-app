@@ -5,7 +5,9 @@ import com.bank.model.Transaction;
 import com.bank.model.Transfer;
 import com.bank.services.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +30,18 @@ public class BankResource {
 
 
     @RequestMapping(value = "accounts", method = RequestMethod.DELETE)
-    public void deleteAccount(@RequestParam String account) {
+    public void   deleteAccount(@RequestParam String account) {
         bankService.deleteAccount(account);
+
     }
 
+
     @RequestMapping(value = "accounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createAccount(@RequestBody Account account) {
+    public String createAccount(@RequestBody Account account) {
+        System.out.println("Creating Account " + account.getAccountNumber());
+
         bankService.createAccount(account);
+        return "accountCreated";
     }
 
 
@@ -46,8 +53,9 @@ public class BankResource {
 
 
     @RequestMapping(value = "transfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void transferMoney(@RequestBody Transfer transfer) { bankService.doTransfer();
-       System.out.println("transfer done :"+transfer);
+    public void transferMoney(@RequestBody Transfer transfer) {
+        bankService.doTransfer();
+        System.out.println("transfer done :" + transfer);
     }
 
 

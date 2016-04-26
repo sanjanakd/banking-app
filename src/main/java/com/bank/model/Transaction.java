@@ -3,16 +3,27 @@ package com.bank.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by xkt676 on 2/5/16.
  */
 @Entity
 @Table(name = "TRANSACTIONS")
-public class Transaction {
+public class Transaction implements Comparable {
     private int accountNumber;
     private String merchantName;
     private double transactionAmount;
+    private Date transactionDate;
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,5 +57,11 @@ public class Transaction {
     public String getTransactionId(){ return transactionId; }
 
     public void setTransactionId(String transactionId){ this.transactionId=transactionId; }
+
+    @Override
+    public int compareTo(Object o) {
+
+        return 0;
+    }
 }
 

@@ -4,6 +4,7 @@ import com.bank.model.Account;
 import com.bank.model.Transaction;
 import com.bank.model.Transfer;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by xkt676 on 2/5/16.
@@ -51,11 +53,16 @@ public class BankDao {
         account1.setAccountNumber(1122112211);
         account1.setBalance(5600.88);
 
-
-        Iterable<Account> iterable = accountRepository.findAll();
-
         list.add(account1);
 
+        Account account2=new Account();
+        account2.setAccountNumber(299083678);
+        account2.setName("saving");
+        account2.setBalance(209.00);
+
+        list.add(account2);
+
+        Iterable<Account> iterable = accountRepository.findAll();
         return Lists.newArrayList(iterable);
     }
 
@@ -76,17 +83,19 @@ public class BankDao {
 
         Transaction transaction = new Transaction();
         transaction.setAccountNumber(1122112211);
-        transaction.setMerchantName("panda express");
+        transaction.setMerchantName("Panda express");
         transaction.setTransactionAmount(34.88);
+
+        transaction.setTransactionDate(getDateFromString("01/29/16"));
 
         list.add(transaction);
 
 
         Transaction transaction1 = new Transaction();
         transaction1.setAccountNumber(1122112211);
-        transaction1.setMerchantName("prada");
+        transaction1.setMerchantName("Prada");
         transaction1.setTransactionAmount(899.87);
-
+        transaction1.setTransactionDate(getDateFromString("09/09/15"));
         list.add(transaction1);
 
 
@@ -94,21 +103,42 @@ public class BankDao {
         transaction2.setAccountNumber(1122119999);
         transaction2.setMerchantName("Macys");
         transaction2.setTransactionAmount(799.87);
+        transaction2.setTransactionDate(getDateFromString("06/6/02"));
 
         list.add(transaction2);
 
 
         Transaction transaction3 = new Transaction();
         transaction3.setAccountNumber(992211211);
-        transaction3.setMerchantName("cold Stone");
+        transaction3.setMerchantName("Cold Stone");
         transaction3.setTransactionAmount(89.87);
+        transaction3.setTransactionDate(getDateFromString("07/06/08"));
 
         list.add(transaction3);
 
 
-       // Iterable<Transaction> iterable=transactionRepository.findAll();
+
+       // Collections.sort(list, new Comparator<Transaction>() {
+         //   @Override
+           // public int compare(Transaction o1, Transaction o2) {
+             //   if (o1.getTransactionDate() == null || o2.getTransactionDate() == null)
+               //     return 0;
+                //return o1.getTransactionDate().compareTo(o2.getTransactionDate());
+            //}
+
+        //});
+
+        Collections.sort(list, new Comparator<Transaction>() {
+            public int compare(Transaction t1,Transaction t2) {
+                if (t1.getMerchantName()==null || t2.getMerchantName()==null)
+                    return 0;
+                return t1.getMerchantName().compareTo(t2.getMerchantName());
+            }
+        });
+        //Iterable<Transaction> iterable=transactionRepository.findAll();
         //return Lists.newArrayList(iterable);
-        return list;
+
+       return list;
     }
 
     public List<Transfer> getTransferFromdatabase() {
@@ -121,5 +151,26 @@ public class BankDao {
         return list;
 
     }
+
+    /**
+     * "MM/dd/yy"
+     * @return
+     */
+    private Date getDateFromString(String textDate ) {
+
+        try {
+
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+            Date date = formatter.parse(textDate);
+
+            return date;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return new Date();
+    }
+
 }
 

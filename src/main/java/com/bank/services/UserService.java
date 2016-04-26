@@ -4,8 +4,13 @@ import com.bank.dao.BankDao;
 import com.bank.model.Transaction;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
+import sun.misc.Compare;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,40 +22,41 @@ public class UserService {
     @Autowired
     private BankDao bankDao;
 
-    public List<Transaction> getTransactions(String userId,String transactionId){
-        List<Transaction> transactions=bankDao.getTransactionFromdatabase();
+    public List<Transaction> getTransactions(String userId, String transactionId) {
+        List<Transaction> transactions = bankDao.getTransactionFromdatabase();
         System.out.println("Returning transactions for userId :" + userId + " And transactionId :" + transactionId);
 
-        if (transactionId!=null) {
+        if (transactionId != null) {
             for (Transaction transaction : transactions) {
                 if (transaction.getTransactionId().equalsIgnoreCase(transactionId)) {
                     return Lists.newArrayList(transactions);
                 }
             }
-        }else {
+        } else {
             return transactions;
 
-            }
-        return Lists.newArrayList();
         }
+        return Lists.newArrayList();
+    }
 
-    public List<String> getUsers(){
-        return Lists.newArrayList("user1","user2","user3");
+    public List<String> getUsers() {
+        return Lists.newArrayList("user1", "user2", "user3");
 
     }
 
-    public List<Transaction> getTransactionsDetails(String userId,String transactionId){
+    public List<Transaction> getTransactionsDetails(String userId, String transactionId) {
 
-        List<Transaction> transactions=bankDao.getTransactionFromdatabase();
+        List<Transaction> transactions = bankDao.getTransactionFromdatabase();
         System.out.println("returning transaction details for userId :" + userId + "and transactionId :" + transactionId);
         return Lists.newArrayList(transactions);
     }
 
-    public List<String> getReceipts(String userId,String transactionId){
+    public List<String> getReceipts(String userId, String transactionId) {
         System.out.println("Returning receipts for userId :" + userId + "and transactionId :" + transactionId);
-        return Lists.newArrayList("receipts1","receipts2","receipts3");
+        return Lists.newArrayList("receipts1", "receipts2", "receipts3");
     }
-    }
+
+}
 
 
 
