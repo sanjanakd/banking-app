@@ -1,9 +1,11 @@
 package com.bank.services;
 
 import com.bank.dao.BankDao;
+import com.bank.dao.JsonPublicRestClient;
 import com.bank.model.Account;
 import com.bank.model.Transaction;
 import com.bank.model.Transfer;
+import com.bank.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +14,11 @@ import java.util.List;
 /**
  * Created by xkt676 on 2/5/16.
  */
-//@Component
+@Component
 public class BankService {
 
+    //@Autowired
+   // private JsonPublicRestClient jsonPublicRestClient;
     @Autowired
     private BankDao bankDao;
 
@@ -22,6 +26,10 @@ public class BankService {
 
         List<Account> accounts = bankDao.getAccountFromDatabase();
 
+        // new Thread(jsonPublicRestClient).start();
+        //jsonPublicRestClient.getData();
+
+        System.out.println("Account details");
         return accounts;
     }
 
@@ -44,16 +52,23 @@ public class BankService {
         return transactions;
     }
 
-    public List<Transfer> doTransfer() {
 
+    public List<Transfer> doTransfer() {
 
         List<Transfer> transfers = bankDao.getTransferFromdatabase();
 
         return transfers;
     }
 
+    public List<User> getUser(){
+        List<User> users=bankDao.getUserFromDataBase();
+        return users;
+    }
 
+    public void addUser(User user){
+        bankDao.addUserToDatabase(user);
 
+    }
 
 
     /**

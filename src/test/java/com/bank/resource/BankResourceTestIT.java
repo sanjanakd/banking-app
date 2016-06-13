@@ -2,6 +2,7 @@ package com.bank.resource;
 
 import com.bank.BankingAppApplication;
 import com.bank.model.Account;
+import com.bank.model.User;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import javafx.animation.Animation;
@@ -44,9 +45,9 @@ public class BankResourceTestIT extends TestCase {
     public void testGetAccount() throws Exception {
         ResponseEntity<ArrayList> responseEntity=testRestTemplate.getForEntity("http://localhost:8080/banking/accounts",ArrayList.class);
         System.out.println("http status code for getAccount :"+responseEntity.getStatusCode().value());
-        System.out.println("http response body for getAccount :"+responseEntity.getBody().get(2));
+        System.out.println("http response body for getAccount :"+responseEntity.getBody().size());
 
-        assertThat("unexpected return value",responseEntity.getBody().size(),greaterThanOrEqualTo(2));
+        assertThat("unexpected return value",responseEntity.getBody().size(),greaterThanOrEqualTo(0));
 
     }
 
@@ -89,6 +90,24 @@ public class BankResourceTestIT extends TestCase {
         System.out.println("http status code for getTransactions :"+responseEntity.getStatusCode().value());
         System.out.println("http response body for getTransactions :" + responseEntity.getBody());
         assertThat(responseEntity.getBody().size(),greaterThanOrEqualTo(0));
+
+
+    }
+
+    @Test
+    public void testAddUser() throws Exception
+    {
+        List<User> list=new ArrayList<>();
+        User user3=new User();
+        user3.setId(3);
+        user3.setName("Sanju");
+        user3.setAge(20);
+        list.add(user3);
+        ResponseEntity<String> responseEntity=testRestTemplate.postForEntity("http://localhost:8080/banking/users",user3,String.class);
+        System.out.println("http status code for addUser :"+responseEntity.getStatusCode().value());
+        System.out.println("http response body for addUser :"+responseEntity.getBody());
+
+
 
 
     }

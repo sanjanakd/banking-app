@@ -2,6 +2,7 @@ package com.bank.services;
 
 import com.bank.dao.BankDao;
 import com.bank.model.Transaction;
+import com.bank.model.User;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -39,8 +40,11 @@ public class UserService {
         return Lists.newArrayList();
     }
 
-    public List<String> getUsers() {
-        return Lists.newArrayList("user1", "user2", "user3");
+    public List<User> getUsers() {
+      List<User> users =  bankDao.getUserFromDataBase();
+        System.out.println("list of users :" + Lists.newArrayList());
+        return users;
+       // return Lists.newArrayList("user1", "user2", "user3");
 
     }
 

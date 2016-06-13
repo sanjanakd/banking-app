@@ -1,6 +1,7 @@
 package com.bank.resource;
 
 import com.bank.model.Transaction;
+import com.bank.model.User;
 import com.bank.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class UserResource {
     UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getUsers() {
+    public List<User> getUsers() {
         return userService.getUsers();
     }
 
@@ -42,6 +43,7 @@ public class UserResource {
 
     @RequestMapping(value = "{userId}/transactions/{transactionId}/receipts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getReceipts(@PathVariable String userId, @PathVariable String transactionId) {
+
         return userService.getReceipts("1", "2");
 
     }

@@ -3,8 +3,8 @@ package com.bank.dao;
 import com.bank.model.Account;
 import com.bank.model.Transaction;
 import com.bank.model.Transfer;
+import com.bank.model.User;
 import com.google.common.collect.Lists;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -33,7 +33,8 @@ public class BankDao {
     @Autowired
     private TransactionRepository transactionRepository;
 
-
+    @Autowired
+    private UserRepository userRepository;
 
 
     public List<Account> getAccountFromDatabase() {
@@ -55,7 +56,7 @@ public class BankDao {
 
         list.add(account1);
 
-        Account account2=new Account();
+        Account account2 = new Account();
         account2.setAccountNumber(299083678);
         account2.setName("saving");
         account2.setBalance(209.00);
@@ -117,20 +118,19 @@ public class BankDao {
         list.add(transaction3);
 
 
-
-       // Collections.sort(list, new Comparator<Transaction>() {
-         //   @Override
-           // public int compare(Transaction o1, Transaction o2) {
-             //   if (o1.getTransactionDate() == null || o2.getTransactionDate() == null)
-               //     return 0;
-                //return o1.getTransactionDate().compareTo(o2.getTransactionDate());
-            //}
+        // Collections.sort(list, new Comparator<Transaction>() {
+        //   @Override
+        // public int compare(Transaction o1, Transaction o2) {
+        //   if (o1.getTransactionDate() == null || o2.getTransactionDate() == null)
+        //     return 0;
+        //return o1.getTransactionDate().compareTo(o2.getTransactionDate());
+        //}
 
         //});
 
         Collections.sort(list, new Comparator<Transaction>() {
-            public int compare(Transaction t1,Transaction t2) {
-                if (t1.getMerchantName()==null || t2.getMerchantName()==null)
+            public int compare(Transaction t1, Transaction t2) {
+                if (t1.getMerchantName() == null || t2.getMerchantName() == null)
                     return 0;
                 return t1.getMerchantName().compareTo(t2.getMerchantName());
             }
@@ -138,12 +138,12 @@ public class BankDao {
         //Iterable<Transaction> iterable=transactionRepository.findAll();
         //return Lists.newArrayList(iterable);
 
-       return list;
+        return list;
     }
 
     public List<Transfer> getTransferFromdatabase() {
 
-        Transfer transfer=new Transfer();
+        Transfer transfer = new Transfer();
 
         List<Transfer> list = new ArrayList<>();
         list.add(transfer);
@@ -154,9 +154,10 @@ public class BankDao {
 
     /**
      * "MM/dd/yy"
+     *
      * @return
      */
-    private Date getDateFromString(String textDate ) {
+    private Date getDateFromString(String textDate) {
 
         try {
 
@@ -172,5 +173,61 @@ public class BankDao {
         return new Date();
     }
 
+    public List<User> getUserFromDataBase() {
+        List<User> list = new ArrayList<>();
+
+        User user = new User();
+        user.setAge(24);
+        user.setId(1);
+        user.setName("sanjana");
+        list.add(user);
+
+        User user1 = new User();
+        user1.setName("yogesh");
+        user1.setId(2);
+        user1.setAge(30);
+        list.add(user1);
+
+        User user2 = new User();
+        user2.setName("Manjiri");
+        user2.setId(3);
+        user2.setAge(22);
+        list.add(user2);
+
+        User user3=new User();
+        user3.setAge(40);
+        user3.setName("Ami");
+        user3.setId(4);
+        list.add(user3);
+
+        Collections.sort(list, new Comparator<User>() {
+            @Override
+            public int compare(User u1, User u2) {
+                if (u1.getName()==null || u2.getName()==null)
+                return 0;
+                return u1.getName().compareTo(u2.getName());
+            }
+        });
+
+
+        //Iterable<User> iterable = userRepository.findAll();
+        //return Lists.newArrayList(iterable);
+
+
+        return list;
+
+    }
+
+    public void addUserToDatabase(User user) {
+
+
+        userRepository.save(user);
+        // entityManager.persist(user);
+    }
+
+
 }
+
+
+
 

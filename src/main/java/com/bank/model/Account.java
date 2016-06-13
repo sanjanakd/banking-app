@@ -12,7 +12,6 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
-
     private int accountNumber;
     private String name;
     private double balance;
